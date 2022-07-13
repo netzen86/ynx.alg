@@ -1,3 +1,4 @@
+# 69386109
 from itertools import accumulate as acc
 
 
