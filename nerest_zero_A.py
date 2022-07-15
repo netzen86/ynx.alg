@@ -1,38 +1,35 @@
-list_house = [0, 4, 0, 9, 6]
-length = 10
-indices = [i + 1 for i, x in enumerate(list_house) if x == 0]
-print(indices)
-b = 1
-tmp = []
-result = []
-for i in indices:
-    # if i :
-    #     result.append(0)
-    #     if (len(range(1, indices[1])) % 2) == 1:
-    #         tmp = list(range(1, (indices[1] // 2)))
-    #         result.extend(tmp)
-    #         result.append((indices[1] // 2))
-    #         result.extend(tmp[::-1])
-    #     else:
-    #         tmp = list(range(1, ((indices[1] // 2) + 1)))
-    #         result.extend(tmp)
-    #         result.extend(tmp[::-1])
-    #     tmp.clear()
-    #     b = indices[1]
-    # else:
-    print(b)
-    if (len(range(b, i)) % 2) == 1:
-        tmp = list(range(1, (i // 2)))
-        result.extend(tmp)
-        result.append((i // 2))
-        result.extend(tmp[::-1])
-        result.append(0)
-    else:
-        tmp = list(range(b, ((i // 2) + 1)))
-        result.extend(tmp)
-        result.extend(tmp[::-1])
-        result.append(0)
-    b = i
-    tmp.clear()
+# nerest_zero_a.py
+# ID успешной посылки 69396321
+from itertools import accumulate as acc
 
-print(result)
+
+def dis(x, y):
+    return (x + 1) * (y > 0)
+
+
+def conv_pos(h_home):
+    return [
+        (int(pos) + 1)
+        if val != "0"
+        else int(val)
+        for pos, val
+        in enumerate(h_home)
+        ]
+
+
+def nerest_zero(h_num):
+    indices = [i + 1 for i, x in enumerate(h_num) if x == 0]
+    result = []
+    for i in list(acc(h_num[(indices[0]-1)::-1], dis))[::-1]:
+        if i:
+            result.append(i)
+    h_num = h_num[(indices[0] - 1)::]
+    for f, b in zip(list(acc(h_num, dis)), list(acc(h_num[::-1], dis))[::-1]):
+        result.append(min(f, b))
+    return result
+
+
+if __name__ == '__main__':
+    street_length = input()
+    home_number = input().split()
+    print(*nerest_zero(conv_pos(home_number)))
