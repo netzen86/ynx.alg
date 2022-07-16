@@ -1,7 +1,7 @@
 # ! change LOCAL to False before submitting !
 # set LOCAL to True for local testing
 
-LOCAL = True
+LOCAL = False
 
 if LOCAL:
     class DoubleConnectedNode:
@@ -11,43 +11,37 @@ if LOCAL:
             self.prev = prev
 
 
-def solution(node):
-    revers_node = DoubleConnectedNode("node0")
+def solution(node, tail=None):
     while node:
-        prev = node.prev
-        revers_node.prev = node.next
-        revers_node.next = prev
-        node = node.next
-        if revers_node:
-            print(revers_node.value)
-        print(revers_node)
-    return revers_node
+        node.next, tail, node = tail, node, node.next
+    return tail
 
 
-def test():
-    node3 = DoubleConnectedNode("node3")
-    node2 = DoubleConnectedNode("node2")
-    node1 = DoubleConnectedNode("node1")
-    node0 = DoubleConnectedNode("node0")
+# def test():
+#     node3 = DoubleConnectedNode("node3")
+#     node2 = DoubleConnectedNode("node2")
+#     node1 = DoubleConnectedNode("node1")
+#     node0 = DoubleConnectedNode("node0")
 
-    node0.next = node1
+#     node0.next = node1
 
-    node1.prev = node0
-    node1.next = node2
+#     node1.prev = node0
+#     node1.next = node2
 
-    node2.prev = node1
-    node2.next = node3
+#     node2.prev = node1
+#     node2.next = node3
 
-    node3.prev = node2
-    new_head = solution(node0)
-    # assert new_head is node3
-    # assert node3.next is node2
-    # assert node2.next is node1
-    # assert node2.prev is node3
-    # assert node1.next is node0
-    # assert node1.prev is node2
-    # assert node0.prev is node1
+#     node3.prev = node2
+#     new_head = solution(node0)
+#     print(new_head.next.value)
+#     # assert new_head is node3
+#     # assert node3.next is node2
+#     # assert node2.next is node1
+#     # assert node2.prev is node3
+#     # assert node1.next is node0
+#     # assert node1.prev is node2
+#     # assert node0.prev is node1
 
 
-if __name__ == '__main__':
-    test()
+# if __name__ == '__main__':
+#     test()
