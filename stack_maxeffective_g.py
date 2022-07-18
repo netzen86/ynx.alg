@@ -18,19 +18,34 @@ class Stack:
 class StackMaxEffective(Stack):
     def __init__(self):
         super().__init__()
-        self.max = 0
+        self.maximum = None
 
     def get_max(self):
         if self.items:
-            print(max(self.items))
+            print(self.maximum)
         else:
             print(None)
+    
+    def push(self, item):
+        if not self.items:
+            self.items.append(item)
+            self.maximum = item
+
+        elif item > self.maximum:
+            tmp = (2 * item) - self.maximum
+            self.items.append(tmp)
+            self.maximum = item
+        else:
+            self.items.append(item)
 
     def pop(self):
         if not self.items:
             print('error')
         else:
-            return self.items.pop()
+            top = self.items[-1]
+            if top > self.maximum:
+                self.maximum = ((2 * self.maximum) - top)
+            self.items.pop()
 
 
 if __name__ == '__main__':
