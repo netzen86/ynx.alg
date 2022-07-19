@@ -1,4 +1,4 @@
-        
+
 def is_correct_bracket_seq(seq):
     stack = []
     brackets = {
