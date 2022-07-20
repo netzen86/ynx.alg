@@ -1,9 +1,9 @@
 # ID посылки 69432422
 ops = {
-  "+": (lambda a, b: a + b),
-  "-": (lambda a, b: a - b),
-  "*": (lambda a, b: a * b),
-  "/": (lambda a, b: int(a / b))
+  '+': (lambda a, b: a + b),
+  '-': (lambda a, b: a - b),
+  '*': (lambda a, b: a * b),
+  '/': (lambda a, b: int(a / b))
 }
 
 
@@ -14,7 +14,7 @@ def calc(expr):
         if num in ops:
             arg2 = stack.pop()
             arg1 = stack.pop()
-            if arg1 < 0 and num == "/":
+            if arg1 < 0 and num == '/':
                 result = arg1 // arg2
             else:
                 result = ops[num](arg1, arg2)
