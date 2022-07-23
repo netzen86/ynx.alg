@@ -1,4 +1,17 @@
-# ID посылки 69432422
+# ID посылки 69452741
+class Stack:
+    '''Класс реализующий структуру данных "стек"'''
+    def __init__(self):
+        self.__items = []
+
+    def push(self, item):
+        self.__items.append(item)
+
+    def pop(self):
+        return self.__items.pop()
+
+
+# словарь с помошью которого определяем арифметическое действие
 ops = {
   '+': (lambda a, b: a + b),
   '-': (lambda a, b: a - b),
@@ -8,8 +21,9 @@ ops = {
 
 
 def calc(expr):
+    '''Функция для вычисления выражений в обратной польской нотации'''
     nums = expr.split()
-    stack = []
+    stack = Stack()
     for num in nums:
         if num in ops:
             arg2 = stack.pop()
@@ -18,9 +32,9 @@ def calc(expr):
                 result = arg1 // arg2
             else:
                 result = ops[num](arg1, arg2)
-            stack.append(result)
+            stack.push(result)
         else:
-            stack.append(int(num))
+            stack.push(int(num))
 
     return stack.pop()
 
