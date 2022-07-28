@@ -1,24 +1,26 @@
-import time
+def bubble(ar_len, array):
+    if ar_len == 1:
+        return [array, ]
+    end = 1
+    result = []
+    for ext_iter in range(ar_len - 1):
+        f = 0
+        for int_iter in range(ar_len - end):
+            pointer1 = array[int_iter]
+            pointer2 = array[int_iter + 1]
+            if pointer1 > pointer2:
+                array[int_iter], array[int_iter + 1] = pointer2, pointer1
+                f = 1
+        if f == 0:
+            if len(result) > 1:
+                return result
+            return [array, ]
+        end += 1
+        result.append(array.copy())
+    return result
 
 
-def bubble(ar_len, array, stopper=0):
-    f = 0
-    if stopper == (ar_len - 1):
-        return array
-    for iter in range(ar_len - 1):
-        pointer1 = array[iter]
-        pointer2 = array[iter + 1]
-        if pointer1 > pointer2:
-            array[iter], array[iter + 1] = pointer2, pointer1
-        else:
-            f = 1
-    if not f:
-        return array
-    stopper += 1
-    print(array)
-    return bubble(ar_len, array, stopper)
-
-
-start = time.time()
-print(bubble(5, [4, 3, 9, 2, 12]))
-print(time.time() - start)
+if __name__ == '__main__':
+    length = int(input())
+    array = [int(i) for i in input().split()]
+    [print(*item) for item in bubble(length, array)]
