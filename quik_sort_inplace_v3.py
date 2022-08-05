@@ -1,25 +1,32 @@
 # id посылки 69575638
+from dataclasses import dataclass
+from typing import Callable, List
 
+
+@dataclass
 class Competitor:
-    '''Класс описывающий учасника соревнований'''
-    def __init__(self, name, task, penalty):
-        self.name = name
-        self.task = task
-        self.penalty = penalty
+    """Класс описывающий участника соревнований"""
+    name: str
+    task: int
+    penalty: int
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
-def partition(array, start, end, compare_func):
-    '''Функция разделения массива на части'''
+def partition(
+    array: List[Competitor],
+    start: int,
+    end: int,
+    compare_func: Callable[..., bool]
+) -> int:
+    """Функция разделения массива на части"""
     # точка отталкивания
-    pivot = array[start]
+    pivot: Competitor = array[start]
     # левый указатель
-    low = start + 1
+    low: int = start + 1
     # правый указатель
-    high = end
-
+    high: int = end
     while True:
         # если элемент больше pivot перемещаем правый указатель влево
         # логика сравнения описана в lamda функции
@@ -38,21 +45,26 @@ def partition(array, start, end, compare_func):
     return high
 
 
-def quick_sort(array, start, end, compare_func):
-    '''Функция быстрой сортировки'''
+def quick_sort(
+    array: List[Competitor],
+    start: int,
+    end: int,
+    compare_func: Callable[..., bool]
+) -> None:
+    """Функция быстрой сортировки"""
     # базовый случай, выход из рекурсии когда указатели встретились
     if start >= end:
         return
     # разделяем массив на части
-    p = partition(array, start, end, compare_func)
+    part: int = partition(array, start, end, compare_func)
     # рекурсивно вызываем quick_sort()
-    quick_sort(array, start, p - 1, compare_func)
-    quick_sort(array, p + 1, end, compare_func)
+    quick_sort(array, start, part - 1, compare_func)
+    quick_sort(array, part + 1, end, compare_func)
 
 
 if __name__ == '__main__':
-    array = []
-    number_competitor = int(input())
+    array: List[Competitor] = []
+    number_competitor: int = int(input())
 
     for competitor in range(number_competitor):
         array.append(
