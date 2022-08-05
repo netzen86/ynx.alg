@@ -1,7 +1,7 @@
 # id посылки 69544838
 
-def find_pivot(arr, low, high):
-    '''Функция для поиска точки сдвига'''
+def find_pivot(arr: list, low: int, high: int) -> int:
+    """Функция для поиска точки сдвига"""
     # если указатели встретились массив не сдвинут выходим из рекурсии
     if high < low:
         return -1
@@ -21,8 +21,8 @@ def find_pivot(arr, low, high):
     return find_pivot(arr, mid + 1, high)
 
 
-def binary_search(arr, low, high, key):
-    '''Функция бинарного поиска'''
+def binary_search(arr: list, low: int, high: int, key: int) -> int:
+    """Функция бинарного поиска"""
     if high < low:
         return -1
     mid = int((low + high)/2)
@@ -33,24 +33,25 @@ def binary_search(arr, low, high, key):
     return binary_search(arr, low, (mid - 1), key)
 
 
-def broken_search(nums, target) -> int:
-    '''Функция поиска элемента в сдвинутом массиве'''
-    n = len(nums)
-    pivot = find_pivot(nums, 0, n-1)
+def broken_search(nums: list, target: int) -> int:
+    """Функция поиска элемента в сдвинутом массиве"""
+    length = len(nums)
+    pivot = find_pivot(nums, 0, length-1)
     # если массив не сдвинут просто ищем бинарным поиском
     if pivot == -1:
-        return binary_search(nums, 0, n-1, target)
+        return binary_search(nums, 0, length-1, target)
     # если точка сдвдига это искомый элемент сразу его возвращаем
     if nums[pivot] == target:
         return pivot
     # поиск в сдвинутом массиве вызовом функции рекурсивно
     if nums[0] <= target:
         return binary_search(nums, 0, pivot-1, target)
-    return binary_search(nums, pivot + 1, n-1, target)
+    return binary_search(nums, pivot + 1, length-1, target)
 
 
 if __name__ == '__main__':
-    length = int(input())
-    target = int(input())
-    array = [int(i) for i in input().split()]
+    length: int = int(input())
+    target: int = int(input())
+    array: list = [int(i) for i in input().split()]
+    print()
     print(broken_search(array, target))
