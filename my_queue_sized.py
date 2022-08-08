@@ -5,11 +5,12 @@ class MyQueueSized:
         self.__queue: list = [None] * max
 
     def pointer(self) -> int:
-        return (self.max_size - 1) - self.q_size
+        if self.q_size == self.max_size:
+            return self.q_size - 1
+        return self.q_size
 
     def push(self, item) -> str:
         if self.max_size == self.q_size:
-            print('error')
             return 'error'
         self.__queue[self.pointer()] = item
         self.q_size += 1
@@ -17,13 +18,16 @@ class MyQueueSized:
 
     def pop(self) -> int:
         if not self.q_size:
-            return 'error'
+            return None
         item = self.peek()
         self.__queue[self.pointer()] = None
         self.q_size -= 1
         return item
 
     def peek(self):
+        print(self.__queue)
+        if not self.q_size:
+            return None
         return self.__queue[self.pointer()]
 
     def size(self):
@@ -38,7 +42,9 @@ if __name__ == '__main__':
         cmd = input()
         if 'push' in cmd:
             cmd = cmd.split()
-            getattr(sq, cmd[0])(int(cmd[1]))
+            msg = getattr(sq, cmd[0])(int(cmd[1]))
+            if msg:
+                print(msg)
         else:
             print(getattr(sq, cmd)())
         num_cmds -= 1
