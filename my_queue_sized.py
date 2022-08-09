@@ -1,36 +1,36 @@
+from typing import Union
+
+
 class MyQueueSized:
     def __init__(self, max) -> None:
         self.max_size: int = max
+        self.head: int = 0
+        self.tail: int = 0
         self.q_size: int = 0
         self.__queue: list = [None] * max
 
-    def pointer(self) -> int:
+    def push(self, item) -> Union[str, None]:
         if self.q_size == self.max_size:
-            return self.q_size - 1
-        return self.q_size
-
-    def push(self, item) -> str:
-        if self.max_size == self.q_size:
             return 'error'
-        self.__queue[self.pointer()] = item
+        self.__queue[self.tail] = item
+        self.tail = (self.tail + 1) % self.max_size
         self.q_size += 1
         return None
 
-    def pop(self) -> int:
+    def pop(self) -> Union[int, None]:
         if not self.q_size:
             return None
-        item = self.peek()
-        self.__queue[self.pointer()] = None
+        item = self.__queue[self.head]
+        self.__queue[self.head] = None
+        self.head = (self.head + 1) % self.max_size
         self.q_size -= 1
         return item
 
-    def peek(self):
-        print(self.__queue)
-        if not self.q_size:
-            return None
-        return self.__queue[self.pointer()]
+    def peek(self) -> int:
+        item = self.__queue[self.head]
+        return item
 
-    def size(self):
+    def size(self) -> int:
         return self.q_size
 
 
