@@ -1,8 +1,11 @@
 def subsequence(string, substring):
-    if len(set(string + substring)) == len(string):
-        return True
-    else:
-        return False
+    position = 0
+    for i in substring:
+        position = string.find(i, position)
+        position += 1
+        if not position:
+            return False
+    return True
 
 
 if __name__ == '__main__':
